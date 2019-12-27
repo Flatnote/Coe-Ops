@@ -23,11 +23,54 @@ class _CreateCourseFormState extends State<CreateCourseForm>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          child: Center(
-            child: Text('test'),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Add a new Course'),
+        ),
+        body: Container(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 8.0,
+              horizontal: 32.0,
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: TextField(
+                      decoration: InputDecoration(
+                    labelText: 'Name of course',
+                  )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: TextField(
+                      decoration: InputDecoration(
+                    labelText: "Description",
+                  )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Date',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Builder(
+                    builder: (context) {
+                      return RaisedButton(
+                        onPressed: () => print('PRESSED'),
+                        child: Text('Submit Pup'),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -246,7 +246,12 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
                     SizedBox(
                       width: 60,
                       height: 60,
-                      child: Icon(Icons.search, color: HexColor('#B9BABC')),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.search,
+                          color: HexColor('#B9BABC'),
+                        ),
+                      ),
                     )
                   ],
                 ),
