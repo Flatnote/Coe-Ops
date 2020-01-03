@@ -1,19 +1,27 @@
+import 'package:coeops/design_course/models/category.dart';
 import 'package:flutter/material.dart';
 import 'design_course_app_theme.dart';
 
 class CourseInfoScreen extends StatefulWidget {
+  final Category data;
+
+  CourseInfoScreen({Key key, @required this.data}) : super(key: key);
+
   @override
-  _CourseInfoScreenState createState() => _CourseInfoScreenState();
+  _CourseInfoScreenState createState() => _CourseInfoScreenState(data: data);
 }
 
 class _CourseInfoScreenState extends State<CourseInfoScreen>
     with TickerProviderStateMixin {
+  _CourseInfoScreenState({Key key, @required this.data});
+
   final double infoHeight = 364.0;
   AnimationController animationController;
   Animation<double> animation;
   double opacity1 = 0.0;
   double opacity2 = 0.0;
   double opacity3 = 0.0;
+  Category data;
 
   @override
   void initState() {
@@ -57,7 +65,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
               children: <Widget>[
                 AspectRatio(
                   aspectRatio: 1.2,
-                  child: Image.asset('assets/design_course/webInterFace.png'),
+                  child: Image.asset(data.imagePath),
                 ),
               ],
             ),
@@ -96,7 +104,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                             padding: const EdgeInsets.only(
                                 top: 32.0, left: 18, right: 16),
                             child: Text(
-                              'Web Design\nCourse',
+                              data.title,
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -114,7 +122,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '\$28.99',
+                                  '\$${data.money}',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w200,
@@ -127,7 +135,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                   child: Row(
                                     children: <Widget>[
                                       Text(
-                                        '4.3',
+                                        data.rating.toString(),
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontWeight: FontWeight.w200,

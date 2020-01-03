@@ -63,7 +63,7 @@ class _CategoryListViewState extends State<CategoryListView>
                     animation: animation,
                     animationController: animationController,
                     callback: () {
-                      widget.callBack();
+                      widget.callBack(Category.categoryList[index]);
                     },
                   );
                 },

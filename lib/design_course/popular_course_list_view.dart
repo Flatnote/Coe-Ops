@@ -55,7 +55,7 @@ class _PopularCourseListViewState extends State<PopularCourseListView>
                   animationController.forward();
                   return CategoryView(
                     callback: () {
-                      widget.callBack();
+                      widget.callBack(Category.popularCourseList[index]);
                     },
                     category: Category.popularCourseList[index],
                     animation: animation,

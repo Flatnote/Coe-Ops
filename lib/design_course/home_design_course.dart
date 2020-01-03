@@ -1,5 +1,6 @@
 import 'package:coeops/design_course/category_list_view.dart';
 import 'package:coeops/design_course/course_info_screen.dart';
+import 'package:coeops/design_course/models/category.dart';
 import 'package:coeops/design_course/popular_course_list_view.dart';
 import 'package:coeops/main.dart';
 import 'package:flutter/material.dart';
@@ -90,8 +91,8 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
           height: 16,
         ),
         CategoryListView(
-          callBack: () {
-            moveTo();
+          callBack: (data) {
+            moveTo(data);
           },
         ),
       ],
@@ -118,8 +119,8 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
             ),
             Flexible(
               child: PopularCourseListView(
-                callBack: () {
-                  moveTo();
+                callBack: (data) {
+                  moveTo(data);
                 },
               ),
             )
@@ -129,11 +130,11 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
     );
   }
 
-  void moveTo() {
+  void moveTo(Category category) {
     Navigator.push<dynamic>(
       context,
       MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => CourseInfoScreen(),
+        builder: (BuildContext context) => CourseInfoScreen(data: category),
       ),
     );
   }
