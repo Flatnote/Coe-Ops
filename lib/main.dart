@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: DesignCourseHomeScreen(),
         floatingActionButton: FloatingActionButton(
           onPressed: _navigateToCreatePage,
-          tooltip: 'Increment',
+          tooltip: 'New course',
           child: Icon(Icons.add),
         ),
       ),
