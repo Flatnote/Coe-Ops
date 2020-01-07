@@ -1,4 +1,7 @@
+import 'package:coeops/view_model/base.dart';
+import 'package:coeops/view_model/google_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SigninPage extends StatefulWidget {
   @override
@@ -6,6 +9,18 @@ class SigninPage extends StatefulWidget {
 }
 
 class _SigninPageState extends State<SigninPage> {
+  Map<String, String> _formData = {};
+
+  void _handleGoogleLogin() async {
+    final response =
+        await Provider.of<GoogleButtonViewModel>(context, listen: false)
+            .signInWithGoogle(_formData);
+    if (response) {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -101,28 +116,44 @@ class _SigninPageState extends State<SigninPage> {
                       ),
                     ),
                     SizedBox(height: 20.0),
-                    Container(
-                      height: 40.0,
-                      color: Colors.transparent,
+                    InkWell(
+                      onTap: () {
+                        _handleGoogleLogin();
+                      },
                       child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.black,
-                                style: BorderStyle.solid,
-                                width: 1.0),
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(20.0)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(width: 10.0),
-                            Center(
-                              child: Text('Log in with google',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            )
-                          ],
+                        height: 40.0,
+                        color: Colors.transparent,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black,
+                                  style: BorderStyle.solid,
+                                  width: 1.0),
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(20.0)),
+                          child: Provider.of<GoogleButtonViewModel>(context)
+                                      .viewStatus ==
+                                  ViewStatus.Loading
+                              ? CircularProgressIndicator(
+                                  valueColor:
+                                      AlwaysStoppedAnimation(Colors.white),
+                                )
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Image(
+                                        image: AssetImage(
+                                            "assets/images/google_logo.png"),
+                                        height: 20.0),
+                                    SizedBox(width: 10.0),
+                                    Center(
+                                      child: Text('Log in with google',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                    )
+                                  ],
+                                ),
                         ),
                       ),
                     )

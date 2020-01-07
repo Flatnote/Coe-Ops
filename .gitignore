@@ -9,6 +9,7 @@
 .history
 .svn/
 
+*.keystore
 google-services.json
 
 # IntelliJ related

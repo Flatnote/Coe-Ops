@@ -1,3 +1,4 @@
+import 'package:coeops/design_course/avatar_header.dart';
 import 'package:coeops/design_course/category_list_view.dart';
 import 'package:coeops/design_course/course_info_screen.dart';
 import 'package:coeops/design_course/models/category.dart';
@@ -13,6 +14,15 @@ class DesignCourseHomeScreen extends StatefulWidget {
 
 class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
   CategoryType categoryType = CategoryType.ui;
+
+  Choice _selectedChoice = choices[0]; // The app's "state".
+
+  void _select(Choice choice) {
+    // Causes the app to rebuild with the new _selectedChoice.
+    setState(() {
+      _selectedChoice = choice;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -300,10 +310,9 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
               ],
             ),
           ),
-          Container(
-            width: 60,
-            height: 60,
-            child: Image.asset('assets/design_course/userImage.png'),
+          InkWell(
+            onTap: () {},
+            child: AvatarHeader(),
           )
         ],
       ),
@@ -315,4 +324,44 @@ enum CategoryType {
   ui,
   coding,
   basic,
+}
+
+class Choice {
+  const Choice({this.title, this.icon});
+
+  final String title;
+  final IconData icon;
+}
+
+const List<Choice> choices = const <Choice>[
+  const Choice(title: 'Car', icon: Icons.directions_car),
+  const Choice(title: 'Bicycle', icon: Icons.directions_bike),
+  const Choice(title: 'Boat', icon: Icons.directions_boat),
+  const Choice(title: 'Bus', icon: Icons.directions_bus),
+  const Choice(title: 'Train', icon: Icons.directions_railway),
+  const Choice(title: 'Walk', icon: Icons.directions_walk),
+];
+
+class ChoiceCard extends StatelessWidget {
+  const ChoiceCard({Key key, this.choice}) : super(key: key);
+
+  final Choice choice;
+
+  @override
+  Widget build(BuildContext context) {
+    final TextStyle textStyle = Theme.of(context).textTheme.display1;
+    return Card(
+      color: Colors.white,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Icon(choice.icon, size: 128.0, color: textStyle.color),
+            Text(choice.title, style: textStyle),
+          ],
+        ),
+      ),
+    );
+  }
 }

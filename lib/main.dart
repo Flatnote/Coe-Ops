@@ -1,18 +1,29 @@
 import 'package:coeops/constants.dart';
-import 'package:coeops/design_course/create_course_form.dart';
-import 'package:coeops/design_course/home_design_course.dart';
+import 'package:coeops/home.dart';
 import 'package:coeops/managers/app_manager.dart';
+import 'package:coeops/models/user.dart';
+import 'package:coeops/root.dart';
+import 'package:coeops/services/auth_service.dart';
 import 'package:coeops/services/locator.dart';
 import 'package:coeops/ui/forgot_password.dart';
 import 'package:coeops/ui/signin.dart';
 import 'package:coeops/ui/signup.dart';
+import 'package:coeops/view_model/google_button.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   setupLocator();
-  return runApp(MyApp());
+  return runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => GoogleButtonViewModel(),
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -22,64 +33,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: AppConstants.appName,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      builder: (context, widget) => Navigator(
-        onGenerateRoute: (settings) => MaterialPageRoute(
-          builder: (context) => AppManager(
-            child: widget,
+    return StreamProvider<User>.value(
+      value: AuthService().user,
+      child: MaterialApp(
+          title: AppConstants.appName,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
           ),
-        ),
-      ),
-      initialRoute: '/signin',
-      routes: <String, WidgetBuilder>{
-        '/home': (BuildContext context) =>
-            new MyHomePage(title: AppConstants.appName),
-        '/signin': (BuildContext context) => new SigninPage(),
-        '/signup': (BuildContext context) => new SignupPage(),
-        '/forgotPassword': (BuildContext context) => new ForgotPasswordPage()
-      },
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title, this.analytics, this.observer})
-      : super(key: key);
-
-  final String title;
-  final FirebaseAnalytics analytics;
-  final FirebaseAnalyticsObserver observer;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState(analytics, observer);
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  _MyHomePageState(this.analytics, this.observer);
-  final FirebaseAnalyticsObserver observer;
-  final FirebaseAnalytics analytics;
-
-  void _navigateToCreatePage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => CreateCourseForm()));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: DesignCourseHomeScreen(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _navigateToCreatePage,
-          tooltip: 'New course',
-          child: Icon(Icons.add),
-        ),
-      ),
+          builder: (context, widget) => Navigator(
+                onGenerateRoute: (settings) => MaterialPageRoute(
+                  builder: (context) => AppManager(
+                    child: widget,
+                  ),
+                ),
+              ),
+          initialRoute: '/',
+          routes: <String, WidgetBuilder>{
+            '/': (BuildContext context) => new Root(),
+            '/home': (BuildContext context) =>
+                new MyHomePage(title: AppConstants.appName),
+            '/signin': (BuildContext context) => new SigninPage(),
+            '/signup': (BuildContext context) => new SignupPage(),
+            '/forgotPassword': (BuildContext context) =>
+                new ForgotPasswordPage()
+          },
+          navigatorObservers: <NavigatorObserver>[
+            observer
+          ]),
     );
   }
 }
