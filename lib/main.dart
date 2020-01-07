@@ -1,35 +1,55 @@
+import 'package:coeops/constants.dart';
 import 'package:coeops/design_course/create_course_form.dart';
 import 'package:coeops/design_course/home_design_course.dart';
+import 'package:coeops/ui/forgot_password.dart';
+import 'package:coeops/ui/signin.dart';
+import 'package:coeops/ui/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: AppConstants.appName,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: SigninPage(),
+      routes: <String, WidgetBuilder>{
+        '/home': (BuildContext context) =>
+            new MyHomePage(title: AppConstants.appName),
+        '/signup': (BuildContext context) => new SignupPage(),
+        '/forgotPassword': (BuildContext context) => new ForgotPasswordPage()
+      },
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key, this.title, this.analytics, this.observer})
+      : super(key: key);
 
   final String title;
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState(analytics, observer);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  _MyHomePageState(this.analytics, this.observer);
+  final FirebaseAnalyticsObserver observer;
+  final FirebaseAnalytics analytics;
 
   void _navigateToCreatePage() {
     Navigator.push(
