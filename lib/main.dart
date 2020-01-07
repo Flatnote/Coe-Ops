@@ -1,14 +1,19 @@
 import 'package:coeops/constants.dart';
 import 'package:coeops/design_course/create_course_form.dart';
 import 'package:coeops/design_course/home_design_course.dart';
+import 'package:coeops/managers/app_manager.dart';
+import 'package:coeops/services/locator.dart';
 import 'package:coeops/ui/forgot_password.dart';
 import 'package:coeops/ui/signin.dart';
 import 'package:coeops/ui/signup.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  setupLocator();
+  return runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   static FirebaseAnalytics analytics = FirebaseAnalytics();
@@ -22,10 +27,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SigninPage(),
+      builder: (context, widget) => Navigator(
+        onGenerateRoute: (settings) => MaterialPageRoute(
+          builder: (context) => AppManager(
+            child: widget,
+          ),
+        ),
+      ),
+      initialRoute: '/signin',
       routes: <String, WidgetBuilder>{
         '/home': (BuildContext context) =>
             new MyHomePage(title: AppConstants.appName),
+        '/signin': (BuildContext context) => new SigninPage(),
         '/signup': (BuildContext context) => new SignupPage(),
         '/forgotPassword': (BuildContext context) => new ForgotPasswordPage()
       },
