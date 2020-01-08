@@ -22,7 +22,7 @@ class GoogleButtonViewModel extends BaseViewModel {
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   // sign in with google
-  Future<bool> signInWithGoogle(Map<String, String> formData) async {
+  Future<bool> signInWithGoogle() async {
     setStatus(ViewStatus.Loading);
     FirebaseUser user;
     try {

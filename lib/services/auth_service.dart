@@ -134,6 +134,7 @@ class AuthService {
       if (isSigned) {
         await googleSignIn.disconnect();
         await googleSignIn.signOut();
+        await _auth.signOut();
       } else {
         await _auth.signOut();
       }

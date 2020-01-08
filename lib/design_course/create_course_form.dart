@@ -28,6 +28,7 @@ class _CreateCourseFormState extends State<CreateCourseForm>
       child: Scaffold(
         appBar: AppBar(
           title: Text('New course'),
+          backgroundColor: DesignCourseAppTheme.nearlyBlue,
         ),
         body: Container(
           child: Padding(
@@ -37,6 +38,13 @@ class _CreateCourseFormState extends State<CreateCourseForm>
             ),
             child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: TextField(
+                      decoration: InputDecoration(
+                    labelText: 'Code of course',
+                  )),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: TextField(
@@ -54,8 +62,30 @@ class _CreateCourseFormState extends State<CreateCourseForm>
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: TextField(
+                      decoration: InputDecoration(
+                    labelText: 'Unit',
+                  )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: TextField(
+                      decoration: InputDecoration(
+                    labelText: 'Hour',
+                  )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: TextField(
                     decoration: InputDecoration(
                       labelText: 'Date',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Room',
                     ),
                   ),
                 ),

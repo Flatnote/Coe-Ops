@@ -9,6 +9,7 @@ import 'package:coeops/ui/forgot_password.dart';
 import 'package:coeops/ui/signin.dart';
 import 'package:coeops/ui/signup.dart';
 import 'package:coeops/view_model/google_button.dart';
+import 'package:coeops/view_model/user.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,9 @@ void main() async {
   setupLocator();
   return runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider(
+        create: (context) => UserViewModel(),
+      ),
       ChangeNotifierProvider(
         create: (context) => GoogleButtonViewModel(),
       ),

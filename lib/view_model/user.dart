@@ -50,4 +50,17 @@ class UserViewModel extends BaseViewModel {
 
     return user != null;
   }
+
+  Future<bool> signOut() async {
+    setStatus(ViewStatus.Loading);
+    try {
+      await AuthService().signOut();
+    } on PlatformException catch (error) {
+      print(error.message);
+      _dialogService.showAlertDialog(error.message);
+      return false;
+    }
+    setStatus(ViewStatus.Ready);
+    return true;
+  }
 }

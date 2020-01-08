@@ -1,5 +1,5 @@
 name: coeops
-description: COE-Ops-learning platform
+description: COE Devops-learning platform
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -40,6 +40,7 @@ dependencies:
   get_it: ^3.0.3
   provider: ^3.0.0+1
   dio: ^3.0.6
+  email_validator: ^1.0.3
   
   cached_network_image: ^2.0.0-rc
 

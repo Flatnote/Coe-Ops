@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coeops/design_course/create_course_form.dart';
+import 'package:coeops/design_course/design_course_app_theme.dart';
 import 'package:coeops/design_course/home_design_course.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -107,6 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: _navigateToCreatePage,
           tooltip: 'New course',
           child: Icon(Icons.add),
+          backgroundColor: DesignCourseAppTheme.nearlyBlue,
         ),
       ),
     );
