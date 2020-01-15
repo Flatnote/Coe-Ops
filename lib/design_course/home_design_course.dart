@@ -228,6 +228,8 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
                           ),
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
+                            contentPadding:
+                                const EdgeInsets.only(top: 8, bottom: 8),
                             labelText: 'Search for course',
                             border: InputBorder.none,
                             helperStyle: TextStyle(
@@ -303,6 +305,7 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
             ),
           ),
           InkWell(
+            borderRadius: const BorderRadius.all(Radius.circular(24.0)),
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => UserDetail()));

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:coeops/design_course/design_course_app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,8 +53,8 @@ class _AvatarHeaderState extends State<AvatarHeader> {
                 placeholder: (context, url) => Container(
                   child: CircularProgressIndicator(
                     strokeWidth: 2.0,
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Colors.limeAccent[400]),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                        DesignCourseAppTheme.nearlyBlue),
                   ),
                   width: 60.0,
                   height: 60.0,

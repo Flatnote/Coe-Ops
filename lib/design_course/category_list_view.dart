@@ -101,6 +101,7 @@ class CategoryView extends StatelessWidget {
             transform: Matrix4.translationValues(
                 100 * (1.0 - animation.value), 0.0, 0.0),
             child: InkWell(
+              borderRadius: const BorderRadius.all(Radius.circular(24.0)),
               splashColor: Colors.transparent,
               onTap: () {
                 callback();

@@ -1,6 +1,6 @@
 import 'package:coeops/design_course/design_course_app_theme.dart';
 import 'package:coeops/view_model/base.dart';
-import 'package:coeops/view_model/user.dart';
+import 'package:coeops/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
