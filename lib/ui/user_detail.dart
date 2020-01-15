@@ -19,6 +19,8 @@ class _UserDetailState extends State<UserDetail> {
 
   @override
   Widget build(BuildContext context) {
+    var logoutLoading =
+        Provider.of<UserViewModel>(context).viewStatus == ViewStatus.Loading;
     return Scaffold(
       appBar: AppBar(
         title: Text('User detail'),
@@ -37,32 +39,35 @@ class _UserDetailState extends State<UserDetail> {
                   shadowColor: Colors.greenAccent,
                   color: DesignCourseAppTheme.nearlyBlue,
                   elevation: 7.0,
-                  child: Provider.of<UserViewModel>(context).viewStatus ==
-                          ViewStatus.Loading
-                      ? CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
+                  child: GestureDetector(
+                    onTap: () async {
+                      final response = await Provider.of<UserViewModel>(context,
+                              listen: false)
+                          .signOut();
+                      if (response == true) {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/signin', (Route<dynamic> route) => false);
+                      }
+                    },
+                    child: Stack(
+                      children: <Widget>[
+                        Center(
+                          child: logoutLoading
+                              ? CircularProgressIndicator(
+                                  valueColor:
+                                      AlwaysStoppedAnimation(Colors.white),
+                                )
+                              : Text(
+                                  'LOG OUT',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                         )
-                      : GestureDetector(
-                          onTap: () async {
-                            final response = await Provider.of<UserViewModel>(
-                                    context,
-                                    listen: false)
-                                .signOut();
-                            if (response == true) {
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  '/signin', (Route<dynamic> route) => false);
-                            }
-                          },
-                          child: Center(
-                            child: Text(
-                              'LOG OUT',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),

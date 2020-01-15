@@ -22,12 +22,12 @@ class InputValidator {
     if (value.isEmpty) {
       return 'Please provide your password!';
     }
-    if (value.length < 3 || value.length > 100) {
-      return 'Password must be between 3 - 100 characters!';
+    if (value.length < 8 || value.length > 20) {
+      return 'Password must be between 8 - 20 characters!';
     }
-    if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
-      return 'Sorry, special characters are not allowed!';
-    }
+    // if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
+    //   return 'Sorry, special characters are not allowed!';
+    // }
     return null;
   }
 
@@ -39,7 +39,7 @@ class InputValidator {
   }
   static String content(String value) {
     if (value.isEmpty) {
-      return 'Hey! You haven\'t told me anything yet!';
+      return 'Please provide this field!';
     }
     return null;
   }

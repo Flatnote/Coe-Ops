@@ -16,6 +16,7 @@ class _SigninPageState extends State<SigninPage> {
 
   void _handleLogin(context) async {
     if (_loginFormKey.currentState.validate()) {
+      _loginFormKey.currentState.save();
       final response = await Provider.of<UserViewModel>(context, listen: false)
           .signInWithEmailAndPassword(_formData);
       if (response) {
@@ -124,27 +125,27 @@ class _SigninPageState extends State<SigninPage> {
                             shadowColor: Colors.greenAccent,
                             color: Colors.green,
                             elevation: 7.0,
-                            child: Provider.of<UserViewModel>(context)
-                                        .viewStatus ==
-                                    ViewStatus.Loading
-                                ? CircularProgressIndicator(
-                                    valueColor:
-                                        AlwaysStoppedAnimation(Colors.white),
-                                  )
-                                : GestureDetector(
-                                    onTap: () {
-                                      _handleLogin(context);
-                                    },
-                                    child: Center(
-                                      child: Text(
+                            child: GestureDetector(
+                              onTap: () {
+                                _handleLogin(context);
+                              },
+                              child: Center(
+                                child: Provider.of<UserViewModel>(context)
+                                            .viewStatus ==
+                                        ViewStatus.Loading
+                                    ? CircularProgressIndicator(
+                                        valueColor: AlwaysStoppedAnimation(
+                                            Colors.white),
+                                      )
+                                    : Text(
                                         'LOGIN',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                    ),
-                                  ),
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(height: 20.0),
@@ -163,30 +164,30 @@ class _SigninPageState extends State<SigninPage> {
                                       width: 1.0),
                                   color: Colors.transparent,
                                   borderRadius: BorderRadius.circular(20.0)),
-                              child: Provider.of<GoogleButtonViewModel>(context)
-                                          .viewStatus ==
-                                      ViewStatus.Loading
-                                  ? CircularProgressIndicator(
-                                      valueColor:
-                                          AlwaysStoppedAnimation(Colors.white),
-                                    )
-                                  : Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Image(
-                                            image: AssetImage(
-                                                "assets/images/google_logo.png"),
-                                            height: 20.0),
-                                        SizedBox(width: 10.0),
-                                        Center(
-                                          child: Text('Log in with google',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                        )
-                                      ],
-                                    ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Image(
+                                      image: AssetImage(
+                                          "assets/images/google_logo.png"),
+                                      height: 20.0),
+                                  SizedBox(width: 10.0),
+                                  Center(
+                                    child: Provider.of<GoogleButtonViewModel>(
+                                                    context)
+                                                .viewStatus ==
+                                            ViewStatus.Loading
+                                        ? CircularProgressIndicator(
+                                            valueColor: AlwaysStoppedAnimation(
+                                                Colors.white),
+                                          )
+                                        : Text('Log in with google',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         )
